@@ -1,6 +1,6 @@
 // TODO: take this out
 const stripe = require("stripe")(
-  "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"
+  process.env.STRIPE_KEY
 );
 const AWS = require("aws-sdk");
 
