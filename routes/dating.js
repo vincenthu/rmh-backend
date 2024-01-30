@@ -37,7 +37,7 @@ const upload = multer();
 AWS.config.update({
   accessKeyId: process.env.AWS_ID,
   secretAccessKey: process.env.AWS_KEY,
-  region: "us-east-1",
+  region: "us-east-2",
 });
 
 const s3 = new AWS.S3();
@@ -55,7 +55,7 @@ router.post(
     const userNonce = req.body.userNonce.toString();
 
     const params = {
-      Bucket: "hingesherpa",
+      Bucket: "rmhassets",
       Key: `${userNonce}/${uid}`,
       Body: file.buffer,
     };
@@ -266,7 +266,7 @@ router.post(
       if (req.file) {
         // upload file and add videoUrl to data
         const params = {
-          Bucket: "hingesherpa",
+          Bucket: "rmhassets",
           Key: `${req.params.userNonce}/${file.originalname}`,
           Body: file.buffer,
         };
@@ -388,7 +388,7 @@ router.post(
       const file = req.file;
       if (req.file) {
         const params = {
-          Bucket: "hingesherpa",
+          Bucket: "rmhassets",
           Key: `${req.params.id}/${Math.floor(
             100000 + Math.random() * 900000
           )}`,

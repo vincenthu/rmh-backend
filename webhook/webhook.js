@@ -151,8 +151,8 @@ const updateMongoWithData = async (userNonce, payment_id, email) => {
   // });
 
   const msg = {
-    to: "drewburnsbab@gmail.com", // Change to your recipient
-    from: "drewburnsbab@gmail.com", // Change to your verified sender
+    to: "vincenthuusa@gmail.com", // Change to your recipient
+    from: "vincenthuusa@gmail.com", // Change to your verified sender
     subject: "New order placed for Review My Hinge!",
     html: `
           <div>
@@ -201,7 +201,7 @@ const sendUserEmail = async (email) => {
             <p>We got your request for the Hinge review and we're on it!</p>
             <p>Your report will be processed and sent to you shortly.</p>
             <p>Thank you for choosing our services!</p>
-            <p>Best regards,<br>Andrew</p>
+            <p>Best regards,<br>ReviewMyHinge</p>
         </body>
         </html>`,
   };

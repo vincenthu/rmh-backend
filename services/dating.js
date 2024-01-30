@@ -7,7 +7,7 @@ const AWS = require("aws-sdk");
 AWS.config.update({
   accessKeyId: process.env.AWS_ID,
   secretAccessKey: process.env.AWS_KEY,
-  region: "us-east-1",
+  region: "us-east-2",
 });
 
 const s3 = new AWS.S3();
@@ -220,8 +220,8 @@ const findOrCreateCustomer = async (userNonce) => {
 
 const sendReviewEmails = async (userNonce, email) => {
   const msg = {
-    to: "drewburnsbab@gmail.com", // Change to your recipient
-    from: "drewburnsbab@gmail.com", // Change to your verified sender
+    to: "vincenthuusa@gmail.com", // Change to your recipient
+    from: "vincenthuusa@gmail.com", // Change to your verified sender
     subject: "New review made",
     html: `
             <div>
@@ -358,7 +358,7 @@ function cleanPhoneNumber(input) {
 const addImageToReviewer = async (reviewerId, file) => {
   const uid = Math.floor(100000 + Math.random() * 900000);
   const params = {
-    Bucket: "hingesherpa",
+    Bucket: "fmhassets",
     Key: `${reviewerId}/${uid}`,
     Body: file.buffer,
   };
