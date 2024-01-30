@@ -358,7 +358,7 @@ function cleanPhoneNumber(input) {
 const addImageToReviewer = async (reviewerId, file) => {
   const uid = Math.floor(100000 + Math.random() * 900000);
   const params = {
-    Bucket: "fmhassets",
+    Bucket: "rmhassets",
     Key: `${reviewerId}/${uid}`,
     Body: file.buffer,
   };
