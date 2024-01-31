@@ -18,7 +18,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const sgMail = require("@sendgrid/mail");
 
-const uri = `mongodb+srv://clarify:${process.env.MONGO_PASSWORD}@cluster0.pjrqyk2.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://vincenthuusa:${process.env.MONGO_PASSWORD}@cluster0.szamis3.mongodb.net/?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -56,7 +56,7 @@ const updateReviewer = async (id, accountId) => {
     },
   });
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
   await collection.findOneAndUpdate(
     { _id: new ObjectId(id) },
@@ -76,7 +76,7 @@ const updateReviewerBalance = async (originalUser) => {
     },
   });
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
   const amountToAdd = parseFloat(
     parseFloat(originalUser.priceTier.price * 0.7).toFixed(2)
@@ -92,7 +92,7 @@ const updateReviewerBalance = async (originalUser) => {
 };
 const findAllReviewers = async () => {
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
   const reviewers = await collection
     .find(
@@ -120,7 +120,7 @@ const findAllReviewers = async () => {
 
 const createWithdrawl = async (id) => {
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
   let query;
   // Check if it's a valid ObjectId
@@ -159,7 +159,7 @@ const createWithdrawl = async (id) => {
 
 const findReviewerById = async (id) => {
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
   let query;
   // Check if it's a valid ObjectId
@@ -314,7 +314,7 @@ const upsertAndAddImage = async (userNonce, photoId, numTry = 0) => {
     await client.connect();
 
     // Select the database
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
 
     // Define the collection
     const collection = db.collection("users");
@@ -366,7 +366,7 @@ const addImageToReviewer = async (reviewerId, file) => {
   console.log("File uploaded successfully:", data.Location);
   // Connect to the MongoDB server
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
 
   await collection.updateOne(
@@ -380,7 +380,7 @@ const addImageToReviewer = async (reviewerId, file) => {
 
 const removeImageFromReviewer = async (reviewerId, url) => {
   await client.connect();
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
   const collection = db.collection("reviewers");
 
   const data = await collection.updateOne(

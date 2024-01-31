@@ -30,7 +30,7 @@ const stripe = require("stripe")(
 // const stripe = require("stripe")(
 //   "sk_test_51Nss04GHPuCVsE3X4VQ3KMTgVUQ0dtxMBxAkqXMM3F8lqJnQVLNx11yBxsWPgRCOdlDSrMUNtwuRsQ9ZgPSxE5AS00u8nxxXan"
 // );
-const uri = `mongodb+srv://vincenthu:iJA98YEyij0tliOW@cluster0.pjrqyk2.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://vincenthuusa:${process.env.MONGO_PASSWORD}@cluster0.szamis3.mongodb.net/`;
 
 const upload = multer();
 
@@ -91,7 +91,7 @@ router.post("/submit", async function (req, res, next) {
     await client.connect();
 
     // Select the database
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
 
     // Define the collection
     const collection = db.collection("users");
@@ -131,7 +131,7 @@ router.post("/photo_delete", async function (req, res, next) {
     await client.connect();
 
     // Select the database
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
 
     // Define the collection
     const collection = db.collection("users");
@@ -163,7 +163,7 @@ router.get("/review/:userNonce", async function (req, res, next) {
     await client.connect();
 
     // Select the database
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
 
     // Define the collection
     const collection = db.collection("users");
@@ -218,7 +218,7 @@ router.get("/reviewer_feed/:id", async function (req, res, next) {
     });
 
     await client.connect();
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
     const collection = db.collection("users");
 
     const result = await collection
@@ -262,7 +262,7 @@ router.post(
       const file = req.file;
 
       // Select the database
-      const db = client.db("sherpa");
+      const db = client.db(process.env.DATABASE_NAME);
       if (req.file) {
         // upload file and add videoUrl to data
         const params = {
@@ -314,7 +314,7 @@ router.get("/signup/:code", async function (req, res, next) {
       },
     });
     await client.connect();
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
     const collection = db.collection("reviewers");
 
     const reviewer = await collection.findOne({
@@ -427,7 +427,7 @@ router.post(
         },
       });
       await client.connect();
-      const db = client.db("sherpa");
+      const db = client.db(process.env.DATABASE_NAME);
       const collection = db.collection("reviewers");
       if (req.body.username) {
         // check if username exists
@@ -464,7 +464,7 @@ router.post("/reviewer/reviewer_send_code", async function (req, res, next) {
       },
     });
     await client.connect();
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
     const collection = db.collection("reviewers");
     const loginCode = Math.floor(100000 + Math.random() * 900000);
 
@@ -517,7 +517,7 @@ router.post("/reviewer/login", async function (req, res, next) {
     });
     await client.connect();
     const loginCode = req.body.loginCode.toString();
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
     const collection = db.collection("reviewers");
     const cleanNumber = cleanPhoneNumber(req.body.phoneNumber);
     const reviewer = await collection.findOne({
@@ -602,7 +602,7 @@ router.get("/admin_feed", authenticateJWT, async function (req, res, next) {
     });
 
     await client.connect();
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
     const collection = db.collection("users");
     const query = {
       isAdminApproved: { $exists: false },
@@ -632,7 +632,7 @@ router.post("/admin_feed", authenticateJWT, async function (req, res, next) {
     });
 
     await client.connect();
-    const db = client.db("sherpa");
+    const db = client.db(process.env.DATABASE_NAME);
     const collection = db.collection("users");
     const query = { userNonce: nonce };
 

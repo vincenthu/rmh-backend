@@ -81,7 +81,7 @@ router.post(
 );
 
 const setPayoutsEnabled = async (accountId) => {
-  const uri = `mongodb+srv://clarify:${process.env.MONGO_PASSWORD}@cluster0.pjrqyk2.mongodb.net/?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://vincenthuusa:${process.env.MONGO_PASSWORD}@cluster0.szamis3.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -93,7 +93,7 @@ const setPayoutsEnabled = async (accountId) => {
   await client.connect();
 
   // Select the database
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
 
   // Define the collection
   const collection = db.collection("reviewers");
@@ -109,7 +109,7 @@ const setPayoutsEnabled = async (accountId) => {
 };
 
 const updateMongoWithData = async (userNonce, payment_id, email) => {
-  const uri = `mongodb+srv://clarify:${process.env.MONGO_PASSWORD}@cluster0.pjrqyk2.mongodb.net/?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://vincenthuusa:${process.env.MONGO_PASSWORD}@cluster0.szamis3.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -121,7 +121,7 @@ const updateMongoWithData = async (userNonce, payment_id, email) => {
   await client.connect();
 
   // Select the database
-  const db = client.db("sherpa");
+  const db = client.db(process.env.DATABASE_NAME);
 
   // Define the collection
   const collection = db.collection("users");
